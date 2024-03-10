@@ -1,0 +1,104 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
+header('Access-Control-Allow-Methods: *');
+
+$db_conn = mysqli_connect("localhost", "root", "", "react-users");
+
+if ($db_conn === false) {
+    die("ERROR: Could Not Connect" . mysqli_connect_error());
+}
+
+$method = $_SERVER['REQUEST_METHOD'];
+
+switch ($method) {
+    case "GET":
+        $type = isset($_GET['type']) ? $_GET['type'] : '';
+
+        if ($type === 'users') {
+            $alluser = mysqli_query($db_conn, "SELECT * FROM users");
+            if (mysqli_num_rows($alluser) > 0) {
+                while ($row = mysqli_fetch_array($alluser)) {
+                    $json_array["userdata"][] = array("id" => $row['number'], 'name' => $row['name'], 'email' => $row['email'], 'password' => $row['password']);
+                }
+
+                echo json_encode($json_array["userdata"]);
+                return;
+            } else {
+                echo json_encode(["result" => "please check the data"]);
+                return;
+            }
+        } elseif ($type === 'cars') {
+            $allcars = mysqli_query($db_conn, "SELECT * FROM cars");
+
+            if (mysqli_num_rows($allcars) > 0) {
+                while ($row = mysqli_fetch_array($allcars)) {
+                    $json_array["cardata"][] = array(
+                        'number' => $row['number'],
+                        'model' => $row['model'],
+                        'rent' => $row['rent'],
+                        'seating' => $row['seating']
+                    );
+                }
+
+                echo json_encode($json_array["cardata"]);
+                return;
+            } else {
+                echo json_encode(["result" => "No cars found"]);
+                return;
+            }
+        } else {
+            echo json_encode(["result" => "Invalid request type"]);
+            return;
+        }
+        break;
+
+   case "POST":
+    $userpostdata = json_decode(file_get_contents("php://input"), true);
+
+    $type = isset($userpostdata['type']) ? $userpostdata['type'] : '';
+
+    if ($type === 'users') {
+        // Handle user data
+        $name = $userpostdata['name'];
+        $number = $userpostdata['number'];
+        $email = $userpostdata['email'];
+        $password = $userpostdata['password'];
+
+        // Add debug log
+        error_log("Received user data: " . print_r($userpostdata, true));
+
+        $result = mysqli_query($db_conn, "INSERT INTO users (number, name, email, password) VALUES('$number','$name','$email','$password')");
+
+        if ($result) {
+            echo json_encode(["success" => "user Added"]);
+        } else {
+            echo json_encode(["faild" => "user failed"]);
+        }
+    } elseif ($type === 'cars') {
+        // Handle car data
+        $name = $userpostdata['model'];
+        $number = $userpostdata['vehicleNumber'];
+        $rent = $userpostdata['rentPerDay'];
+        $seating = $userpostdata['seatingCapacity'];
+
+        // Add debug log
+        
+
+        $result = mysqli_query($db_conn, "INSERT INTO cars (number, model, rent, seating) VALUES('$number','$name','$rent','$seating')");
+
+        if ($result) {
+            echo json_encode(["success" => "car Added"]);
+        } else {
+            echo json_encode(["faild" => "car failed"]);
+        }
+    } else {
+        echo json_encode(["result" => "Invalid request"]);
+    }
+    break;
+
+}
+?>

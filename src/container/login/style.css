@@ -1,0 +1,62 @@
+#home {
+    width: 100%;
+}
+
+#login {
+    width: 40%;
+    height: 500px;
+    float: left;
+    display: flex;
+    margin: 20px;
+}
+
+#sideimg {
+    width: 55%;
+    height: 700px;
+}
+
+#logo {
+    width: 40%;
+    height: 20%;
+}
+
+#data {
+    align-self: center;
+    float: none;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.log {
+    width: 70%;
+    height: 25px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    margin-bottom: 5%;
+    font-size: 16px;
+    font-family: serif;
+    margin-top: 0%;
+    margin-left: 10%;
+}
+
+label {
+    font-family: sans-serif;
+    margin-left: -65%;
+}
+
+#send {
+    width: 70%;
+    height: 30px;
+    border: none;
+    outline: none;
+    background-color: rgb(6, 113, 253);
+    cursor: pointer;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-left: 10%;
+}
+
+button:hover {
+    background-color: blue;
+}

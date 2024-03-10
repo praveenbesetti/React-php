@@ -1,0 +1,66 @@
+.vehicle-form {
+    width: 60%;
+    margin-top: 5%;
+    margin-left: 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    position: absolute;
+}
+
+.name {
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 0%;
+    margin-top: 10px;
+    text-align: center;
+    justify-content: center;
+}
+
+.add {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    margin-left: 25%;
+    text-align: center;
+    outline: none;
+}
+
+#submit {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: #45a049;
+}
+
+#logo {
+    float: right;
+    width: 50%;
+    height: 30%;
+}
+
+#slide {
+    position: absolute;
+    height: 110%;
+}
+
+.link {
+    margin-left: 50%;
+    color: white;
+    font-size: 22px;
+    display: flex;
+    background-color: transparent;
+    margin-top: 20%;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
