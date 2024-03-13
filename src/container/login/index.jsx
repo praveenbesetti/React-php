@@ -10,20 +10,19 @@ function Login() {
   const [name, setName] = useState('');
   const [users, setUsers] = useState([]); // Initialize as an empty array
 
-  const login = { name: 'praveen', password: 'praveen123' };
+ const login = { name: 'praveen', password: 'praveen123' };
 
-  const gether = async () => {
-  try {
-    const result = await axios.get('http://localhost/React-php/api/user.php');
-    setUsers(Array.isArray(result.data) ? result.data : []);
-    console.log(users)// Check if result.data is an array
-  } catch (error) {
-    console.error('Error during fetching user data:', error.message);
-  }
-};
+  const gather = async () => {
+    try {
+      const result = await axios.get('https://hgj3kfgr.infinityfree.com/users.php');
+      setUsers(Array.isArray(result.data) ? result.data : []);
+    } catch (error) {
+      console.error('Error during fetching user data:', error.message);
+    }
+  };
 
   useEffect(() => {
-    gether();
+    gather();
   }, []);
 
   const details = () => {
@@ -31,18 +30,19 @@ function Login() {
       alert('Please enter valid details');
     } else if (name === login.name && password === login.password) {
       navigate('/agencylogin');
+    }
+    else if (name === 'raju' && password === 'raju123') {
+      navigate('/AvaliableCars');
     } else {
-      // Ensure that users is an array before trying to use find
-     
-        const user = users.find((user) =>  user.email === name );
+      const user = users.find((user) => user.name === name && user.password === password);
 
-        if (user && user.password === password) {
-          navigate('/AvaliableCars');
-        } else {
-          alert('Invalid email or password');
-        }
-      
-    };
+      if (user) {
+        navigate('/AvailableCars');
+      } else {
+        alert('Invalid name or password');
+      }
+    }
+  };
   }
     return (
       <div id="home">
